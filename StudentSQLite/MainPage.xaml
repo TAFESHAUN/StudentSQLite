@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentSQLite.MainPage">
+
+    <StackLayout Padding="20">
+        <Label Text="Student Management" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0, 20" />
+
+        <!-- Entry Fields for Student Information -->
+        <Entry Placeholder="Given Name" x:Name="GivenNameEntry" />
+        <Entry Placeholder="Family Name" x:Name="FamilyNameEntry" />
+        <Entry Placeholder="Student Number" x:Name="StudentNumberEntry" />
+        <DatePicker x:Name="EnrollmentDatePicker" Date="{Binding EnrollmentDate}" />
+
+        <!-- Buttons for CRUD Operations -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Button Text="Add Student" Clicked="AddStudent_Clicked" />
+            <Button Text="Update Student" Clicked="UpdateStudent_Clicked" />
+            <Button Text="Delete Student" Clicked="DeleteStudent_Clicked" />
+        </StackLayout>
+
+        <!-- Student List View -->
+        <ListView x:Name="StudentListView" VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding GivenName}" Detail="{Binding FamilyName}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
