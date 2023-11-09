@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentSQLite.Resources.Styles.ShaunStyles">
+    <ResourceDictionary>
+        <!-- Styles here -->
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#007ACC" />
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#F5F5DC" />
+            <Setter Property="PlaceholderColor" Value="#F5F5DC" />
+            <Setter Property="BackgroundColor" Value="#007ACC"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#007ACC" />
+        </Style>
+        
+        <Style TargetType="DatePicker">
+            <Setter Property="TextColor" Value="#007ACC" />
+        </Style>
+
+        <Style TargetType="ListView">
+            <Setter Property="SeparatorColor" Value="#007ACC" />
+        </Style>
+        
+        <!-- Add more styles HERE -->
+
+    </ResourceDictionary>
+
+</ResourceDictionary>
