@@ -2,31 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentSQLite.MainPage">
+    <StackLayout>
+        <Frame BackgroundColor="#F5F5DC" Padding="10" Margin="20">
+            <StackLayout>
+                <Label Text="Student Management" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0, 20" />
+                <!--Entry Fields for Student Information-->
 
-    <StackLayout Padding="20">
-        <Label Text="Student Management" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0, 20" />
+                <Entry Placeholder="Given Name" x:Name="GivenNameEntry" />
+                <Entry Placeholder="Family Name" x:Name="FamilyNameEntry" />
+                <Entry Placeholder="Student Number" x:Name="StudentNumberEntry" />
+                <DatePicker x:Name="EnrollmentDatePicker" Date="{Binding EnrollmentDate}" />
 
-        <!-- Entry Fields for Student Information -->
-        <Entry Placeholder="Given Name" x:Name="GivenNameEntry" />
-        <Entry Placeholder="Family Name" x:Name="FamilyNameEntry" />
-        <Entry Placeholder="Student Number" x:Name="StudentNumberEntry" />
-        <DatePicker x:Name="EnrollmentDatePicker" Date="{Binding EnrollmentDate}" />
+                <!-- Add Student Button -->
+        <Button Text="Add Student" Clicked="AddStudent_Clicked" HorizontalOptions="StartAndExpand" />
 
-        <!-- Buttons for CRUD Operations -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button Text="Add Student" Clicked="AddStudent_Clicked" />
-            <Button Text="Update Student" Clicked="UpdateStudent_Clicked" />
-            <Button Text="Delete Student" Clicked="DeleteStudent_Clicked" />
-        </StackLayout>
-
-        <!-- Student List View -->
-        <ListView x:Name="StudentListView" VerticalOptions="FillAndExpand">
+        <!-- Student List View with Embedded Buttons and DatePicker -->
+        <ListView x:Name="StudentListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding GivenName}" Detail="{Binding FamilyName}" />
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <StackLayout Padding="5">
+                                <Label Text="{Binding GivenName}" VerticalOptions="CenterAndExpand" />
+                                <Label Text="{Binding FamilyName}" VerticalOptions="CenterAndExpand" />
+                                <Label Text="{Binding StudentNumber}" VerticalOptions="CenterAndExpand" />
+                                <Label Text="{Binding EnrollmentDate}" VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                            <Button Text="Update" Clicked="UpdateStudent_Clicked" />
+                            <Button Text="Delete" Clicked="DeleteStudent_Clicked" />
+                            <Button Text="View Details" Clicked="ViewDetails_Clicked" />
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+            </StackLayout>
+        </Frame>
     </StackLayout>
-
 </ContentPage>

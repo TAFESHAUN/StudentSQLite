@@ -21,7 +21,7 @@ public class DatabaseService
 
     public async Task<List<Student>> GetStudentsAsync()
     {
-        return await _database.Table<Student>().ToListAsync();
+        return await _database.Table<Student>().ToListAsync(); //SELECT * FROM STUDENT(TABLE)
     }
     public async Task UpdateStudentAsync(Student student)
     {

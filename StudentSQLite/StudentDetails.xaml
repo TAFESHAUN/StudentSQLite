@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentSQLite.StudentDetails"
+             Title="StudentDetails">
+    <StackLayout>
+        <Frame BackgroundColor="#F5F5DC" Padding="10" Margin="20">
+            <StackLayout>
+                <!-- Display Student Details Here -->
+                <Label Text="{Binding GivenName}" />
+                <Label Text="{Binding FamilyName}" />
+                <Label Text="{Binding StudentNumber}" />
+                <Label Text="{Binding EnrollmentDate}" />
+
+                <!-- Add any other details you want to display -->
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>
