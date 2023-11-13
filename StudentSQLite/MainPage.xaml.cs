@@ -7,8 +7,11 @@ namespace StudentSQLite
 {
     public partial class MainPage : ContentPage
     {
-        //        // Database service to perform CRUD operations
+        //Database service to perform CRUD operations
         private DatabaseService _databaseService;
+
+        //CSV Database service to perform CRUD operations
+        private DatabaseServiceCSV _databaseServiceCSV;
 
         private List<Student> _students;
 
@@ -19,8 +22,11 @@ namespace StudentSQLite
             //Initialize the database service
             _databaseService = new DatabaseService();
 
+            //CSV Initialize
+            _databaseServiceCSV = new DatabaseServiceCSV();
+
             //Load Students
-            //LoadStudentsAsync();
+            LoadStudentsAsync();
         }
 
         protected override void OnAppearing()
@@ -34,7 +40,8 @@ namespace StudentSQLite
         private async void UpdateStudent_Clicked(object sender, EventArgs e)
         {
             var selectedStudent = (Student)((Button)sender).BindingContext;
-            await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseService));
+            //Added CSV -> sends both database services 
+            await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseService, _databaseServiceCSV));
         }
 
         private async void DeleteStudent_Clicked(object sender, EventArgs e)
@@ -44,8 +51,15 @@ namespace StudentSQLite
 
             if (result)
             {
-                await _databaseService.DeleteStudentAsync(selectedStudent);
-                LoadStudentsAsync(); // Reload the students list after deletion
+                //SQLiteVersion
+                //await _databaseService.DeleteStudentAsync(selectedStudent);
+
+                //CSV Version
+                await _databaseServiceCSV.DeleteStudentAsync(selectedStudent);
+
+                //await DisplayAlert("Delete Student", "You Deleted a student", "Ok");
+                // Reload the students list after deletion
+                LoadStudentsAsync();
             }
         }
 
@@ -59,7 +73,13 @@ namespace StudentSQLite
         {
             try
             {
-                _students = await _databaseService.GetStudentsAsync();
+                //SQLite Version
+                //_students = await _databaseService.GetStudentsAsync();
+                
+                //await DisplayAlert("Loading Students", "Loading Check", "Ok");
+                //CSV Version
+                _students = await _databaseServiceCSV.GetStudentsAsync();
+
                 StudentListView.ItemsSource = _students;
             }
             catch (Exception ex)
@@ -69,6 +89,7 @@ namespace StudentSQLite
         }
 
         // Event handler for adding a new student
+        //Visual bug, Consider moving to new Add Student page.
         private async void AddStudent_Clicked(object sender, EventArgs e)
         {
             var newStudent = new Student
@@ -79,7 +100,13 @@ namespace StudentSQLite
                 EnrollmentDate = EnrollmentDatePicker.Date
             };
 
-            await _databaseService.AddStudentAsync(newStudent);
+            //SQLite Version
+            //await _databaseService.AddStudentAsync(newStudent);
+
+            //CSV Version
+            await _databaseServiceCSV.AddStudentAsync(newStudent);
+
+            //await DisplayAlert("Add Student","You Added a student","Ok");
 
             GivenNameEntry.Text = FamilyNameEntry.Text = StudentNumberEntry.Text = string.Empty;
             LoadStudentsAsync();

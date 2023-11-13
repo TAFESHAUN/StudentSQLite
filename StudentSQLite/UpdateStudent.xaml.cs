@@ -4,8 +4,9 @@ public partial class UpdateStudent : ContentPage
 {
     private Student _selectedStudent;
     private DatabaseService _databaseService;
+    private DatabaseServiceCSV _databaseServiceCSV;
 
-    public UpdateStudent(Student selectedStudent, DatabaseService databaseService)
+    public UpdateStudent(Student selectedStudent, DatabaseService databaseService, DatabaseServiceCSV databaseServiceCSV)
     {
         InitializeComponent();
         //Pass student
@@ -19,6 +20,9 @@ public partial class UpdateStudent : ContentPage
         FamilyNameEntry.Text = _selectedStudent.FamilyName;
         StudentNumberEntry.Text = _selectedStudent.StudentNumber;
         EnrollmentDatePicker.Date = _selectedStudent.EnrollmentDate;
+
+        //CSV Version
+        _databaseServiceCSV = databaseServiceCSV;
     }
 
     private async void Update_Clicked(object sender, EventArgs e)
@@ -29,8 +33,13 @@ public partial class UpdateStudent : ContentPage
         _selectedStudent.StudentNumber = StudentNumberEntry.Text;
         _selectedStudent.EnrollmentDate = EnrollmentDatePicker.Date;
 
+        //SQLite Version
         // Call the database service to update the student
-        await _databaseService.UpdateStudentAsync(_selectedStudent);
+        //await _databaseService.UpdateStudentAsync(_selectedStudent);
+
+        //CSV Version
+        await _databaseServiceCSV.UpdateStudentAsync(_selectedStudent);
+        //await DisplayAlert("Update Student", "You Updated a student", "Ok");
 
         // Navigate back to the previous page
         await Navigation.PopAsync();
