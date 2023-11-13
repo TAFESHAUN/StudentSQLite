@@ -3,17 +3,18 @@ namespace StudentSQLite;
 public partial class UpdateStudent : ContentPage
 {
     private Student _selectedStudent;
-    private DatabaseService _databaseService;
+    //private DatabaseService _databaseService;
     private DatabaseServiceCSV _databaseServiceCSV;
 
-    public UpdateStudent(Student selectedStudent, DatabaseService databaseService, DatabaseServiceCSV databaseServiceCSV)
+    public UpdateStudent(Student selectedStudent, DatabaseServiceCSV databaseServiceCSV) //DatabaseService databaseService
     {
         InitializeComponent();
         //Pass student
         _selectedStudent = selectedStudent;
 
         //Pass database servicer
-        _databaseService = databaseService;
+        //SQLite Passed
+        //_databaseService = databaseService;
 
         // Populate the input fields with the existing student details
         GivenNameEntry.Text = _selectedStudent.GivenName;
@@ -22,6 +23,7 @@ public partial class UpdateStudent : ContentPage
         EnrollmentDatePicker.Date = _selectedStudent.EnrollmentDate;
 
         //CSV Version
+        //CSV Passed
         _databaseServiceCSV = databaseServiceCSV;
     }
 

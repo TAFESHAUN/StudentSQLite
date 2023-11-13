@@ -17,7 +17,6 @@ namespace StudentSQLite
         //Point to File in Solution -> Using @ reference
         //Update this reference to your own file system
         //string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"C:\\Users\\User\\Desktop\\Solutions\\StudentSQLite\\StudentSQLite\\studentsDB.csv");
-
         public DatabaseServiceCSV()
         {
             SetupCsvFileAsync().Wait(); // Wait synchronously for setup to complete
@@ -47,6 +46,7 @@ namespace StudentSQLite
             }
         }
 
+        #region C R U D Operations on CSV
         public async Task<List<Student>> GetStudentsAsync()
         {
             List<Student> students = new List<Student>();
@@ -147,5 +147,6 @@ namespace StudentSQLite
                 Console.WriteLine($"Error deleting student from CSV file: {ex.Message}");
             }
         }
+        #endregion
     }
 }

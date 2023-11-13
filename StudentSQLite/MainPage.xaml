@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentSQLite.MainPage">
-    <StackLayout>
+    <ScrollView>
         <Frame BackgroundColor="#F5F5DC" Padding="10" Margin="20">
             <StackLayout>
                 <Label Text="Student Management" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0, 20" />
@@ -14,29 +14,68 @@
                 <DatePicker x:Name="EnrollmentDatePicker" Date="{Binding EnrollmentDate}" />
 
                 <!-- Add Student Button -->
-        <Button Text="Add Student" Clicked="AddStudent_Clicked" HorizontalOptions="StartAndExpand" />
+                <Button Text="Add Student" Clicked="AddStudent_Clicked" HorizontalOptions="StartAndExpand" />
 
-        <!-- Student List View with Embedded Buttons and DatePicker -->
-        <ListView x:Name="StudentListView">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <StackLayout Padding="5">
-                                <Label Text="{Binding GivenName}" VerticalOptions="CenterAndExpand" />
-                                <Label Text="{Binding FamilyName}" VerticalOptions="CenterAndExpand" />
-                                <Label Text="{Binding StudentNumber}" VerticalOptions="CenterAndExpand" />
-                                <Label Text="{Binding EnrollmentDate}" VerticalOptions="CenterAndExpand" />
-                            </StackLayout>
-                            <Button Text="Update" Clicked="UpdateStudent_Clicked" />
-                            <Button Text="Delete" Clicked="DeleteStudent_Clicked" />
-                            <Button Text="View Details" Clicked="ViewDetails_Clicked" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                <!-- Student List View with Embedded Buttons and DatePicker -->
+                <ListView x:Name="StudentListView" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Frame CornerRadius="10" Margin="10" BackgroundColor="#F0F0F0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- ID -->
+                                            <!--<StackLayout Orientation="Horizontal" Padding="10" Grid.Row="0">
+                                                <Label Text="ID:" Padding="0,0,2,0"/>
+                                                <Label Text="{Binding Id}" FontAttributes="Bold"/>
+                                            </StackLayout>-->
+                                            
+                                            <!-- Given Name -->
+                                            <StackLayout Orientation="Horizontal" Padding="10" Grid.Row="0">
+                                                <Label Text="Given Name:" Padding="0,0,2,0"/>
+                                                <Label Text="{Binding GivenName}"/>
+                                            </StackLayout>
+
+                                            <!-- Family Name -->
+                                            <StackLayout Orientation="Horizontal" Padding="10" Grid.Row="1">
+                                                <Label Text="Family Name:" Padding="0,0,2,0"/>
+                                                <Label Text="{Binding FamilyName}" Margin="10,0,0,0"/>
+                                            </StackLayout>
+
+                                            <!-- Student Information Cont. -->
+                                            <StackLayout Orientation="Horizontal" Padding="10" Grid.Row="2">
+                                                <Label Text="Student Number:" Padding="0,0,2,0"/>
+                                                <Label Text="{Binding StudentNumber}" Margin="10,0,0,0"/>
+                                            </StackLayout>
+
+                                            <!-- Student Information Cont. -->
+                                            <StackLayout Orientation="Horizontal" Padding="10" Grid.Row="3">
+                                                <Label Text="Enrollment Date:" Padding="0,0,2,0"/>
+                                                <Label Text="{Binding EnrollmentDate, StringFormat='{0:dd/MM/yyyy}'}" Margin="10,0,0,0"/>
+                                            </StackLayout>
+
+                                            <!-- Buttons -->
+                                            <StackLayout Orientation="Horizontal" Padding="5" Grid.Row="4">
+                                                <Button Text="Update" Clicked="UpdateStudent_Clicked"/>
+                                                <Button Text="Delete" Clicked="DeleteStudent_Clicked" Margin="10,0,0,0"/>
+                                                <Button Text="Details" Clicked="ViewDetails_Clicked" Margin="10,0,0,0"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </Frame>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -8,7 +8,7 @@ namespace StudentSQLite
     public partial class MainPage : ContentPage
     {
         //Database service to perform CRUD operations
-        private DatabaseService _databaseService;
+        //private DatabaseService _databaseService;
 
         //CSV Database service to perform CRUD operations
         private DatabaseServiceCSV _databaseServiceCSV;
@@ -19,10 +19,10 @@ namespace StudentSQLite
         {
             InitializeComponent();
 
-            //Initialize the database service
-            _databaseService = new DatabaseService();
+            //Initialize the database service for SQLite
+            //_databaseService = new DatabaseService();
 
-            //CSV Initialize
+            //Initialize the database service for CSV
             _databaseServiceCSV = new DatabaseServiceCSV();
 
             //Load Students
@@ -41,7 +41,9 @@ namespace StudentSQLite
         {
             var selectedStudent = (Student)((Button)sender).BindingContext;
             //Added CSV -> sends both database services 
-            await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseService, _databaseServiceCSV));
+            //await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseService, _databaseServiceCSV));
+            
+            await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseServiceCSV));
         }
 
         private async void DeleteStudent_Clicked(object sender, EventArgs e)
@@ -110,6 +112,7 @@ namespace StudentSQLite
 
             GivenNameEntry.Text = FamilyNameEntry.Text = StudentNumberEntry.Text = string.Empty;
             LoadStudentsAsync();
+            //Add UI refresh command here
         }
     }
 }
