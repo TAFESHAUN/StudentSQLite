@@ -25,6 +25,9 @@ namespace StudentSQLite
             //Initialize the database service for CSV
             _databaseServiceCSV = new DatabaseServiceCSV();
 
+            //Manual clear
+            //_databaseService.ClearDatabase();
+
             //Load Students
             LoadStudentsAsync();
         }
@@ -42,8 +45,6 @@ namespace StudentSQLite
             var selectedStudent = (Student)((Button)sender).BindingContext;
             //Added CSV -> sends both database services 
             await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseService, _databaseServiceCSV));
-            
-            //await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseServiceCSV));
         }
 
         private async void DeleteStudent_Clicked(object sender, EventArgs e)
@@ -54,10 +55,10 @@ namespace StudentSQLite
             if (result)
             {
                 //SQLiteVersion
-                await _databaseService.DeleteStudentAsync(selectedStudent);
+                //await _databaseService.DeleteStudentAsync(selectedStudent);
 
                 //CSV Version
-                //await _databaseServiceCSV.DeleteStudentAsync(selectedStudent);
+                await _databaseServiceCSV.DeleteStudentAsync(selectedStudent);
 
                 //await DisplayAlert("Delete Student", "You Deleted a student", "Ok");
                 // Reload the students list after deletion
@@ -76,11 +77,11 @@ namespace StudentSQLite
             try
             {
                 //SQLite Version
-                _students = await _databaseService.GetStudentsAsync();
+                //_students = await _databaseService.GetStudentsAsync();
                 
                 //await DisplayAlert("Loading Students", "Loading Check", "Ok");
                 //CSV Version
-                //_students = await _databaseServiceCSV.GetStudentsAsync();
+                _students = await _databaseServiceCSV.GetStudentsAsync();
 
                 StudentListView.ItemsSource = _students;
             }
@@ -103,11 +104,12 @@ namespace StudentSQLite
             };
 
             //SQLite Version
-            await _databaseService.AddStudentAsync(newStudent);
+            //await _databaseService.AddStudentAsync(newStudent);
 
             //CSV Version
-            //await _databaseServiceCSV.AddStudentAsync(newStudent);
+            await _databaseServiceCSV.AddStudentAsync(newStudent);
 
+            //Un-comment for pop-ups/troubleshooting
             //await DisplayAlert("Add Student","You Added a student","Ok");
 
             GivenNameEntry.Text = FamilyNameEntry.Text = StudentNumberEntry.Text = string.Empty;

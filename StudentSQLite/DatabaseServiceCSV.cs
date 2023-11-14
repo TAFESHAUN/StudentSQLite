@@ -22,6 +22,7 @@ namespace StudentSQLite
             SetupCsvFileAsync().Wait(); // Wait synchronously for setup to complete
         }
 
+        //Creates the file + Headers
         private async Task SetupCsvFileAsync()//Can ignore due to .Wait call for now.
         {
             try
@@ -37,6 +38,7 @@ namespace StudentSQLite
                         csv.WriteField("StudentNumber");
                         csv.WriteField("EnrollmentDate");
                         csv.NextRecord();
+                        //await App.Current.MainPage.DisplayAlert("Creat Database", "You set up your DB", "OK");
                     }
                 }
             }

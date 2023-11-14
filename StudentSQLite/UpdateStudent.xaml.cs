@@ -37,10 +37,10 @@ public partial class UpdateStudent : ContentPage
 
         //SQLite Version
         // Call the database service to update the student
-        await _databaseService.UpdateStudentAsync(_selectedStudent);
+        //await _databaseService.UpdateStudentAsync(_selectedStudent);
 
         //CSV Version
-        //await _databaseServiceCSV.UpdateStudentAsync(_selectedStudent);
+        await _databaseServiceCSV.UpdateStudentAsync(_selectedStudent);
         //await DisplayAlert("Update Student", "You Updated a student", "Ok");
 
         // Navigate back to the previous page
