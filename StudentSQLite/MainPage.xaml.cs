@@ -8,7 +8,7 @@ namespace StudentSQLite
     public partial class MainPage : ContentPage
     {
         //Database service to perform CRUD operations
-        private DatabaseService _databaseService;
+        private DatabaseService _databaseServiceSQL;
 
         //CSV Database service to perform CRUD operations
         private DatabaseServiceCSV _databaseServiceCSV;
@@ -20,13 +20,13 @@ namespace StudentSQLite
             InitializeComponent();
 
             //Initialize the database service for SQLite
-            _databaseService = new DatabaseService();
+            _databaseServiceSQL = new DatabaseService();
 
             //Initialize the database service for CSV
             _databaseServiceCSV = new DatabaseServiceCSV();
 
             //Manual clear
-            //_databaseService.ClearDatabase();
+            //_databaseServiceSQL.ClearDatabase();
 
             //Load Students
             LoadStudentsAsync();
@@ -44,7 +44,7 @@ namespace StudentSQLite
         {
             var selectedStudent = (Student)((Button)sender).BindingContext;
             //Added CSV -> sends both database services 
-            await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseService, _databaseServiceCSV));
+            await Navigation.PushAsync(new UpdateStudent(selectedStudent, _databaseServiceSQL, _databaseServiceCSV));
         }
 
         private async void DeleteStudent_Clicked(object sender, EventArgs e)
@@ -55,10 +55,10 @@ namespace StudentSQLite
             if (result)
             {
                 //SQLiteVersion
-                //await _databaseService.DeleteStudentAsync(selectedStudent);
+                await _databaseServiceSQL.DeleteStudentAsync(selectedStudent);
 
                 //CSV Version
-                await _databaseServiceCSV.DeleteStudentAsync(selectedStudent);
+                //await _databaseServiceCSV.DeleteStudentAsync(selectedStudent);
 
                 //await DisplayAlert("Delete Student", "You Deleted a student", "Ok");
                 // Reload the students list after deletion
@@ -77,11 +77,11 @@ namespace StudentSQLite
             try
             {
                 //SQLite Version
-                //_students = await _databaseService.GetStudentsAsync();
+                _students = await _databaseServiceSQL.GetStudentsAsync();
                 
                 //await DisplayAlert("Loading Students", "Loading Check", "Ok");
                 //CSV Version
-                _students = await _databaseServiceCSV.GetStudentsAsync();
+                //_students = await _databaseServiceCSV.GetStudentsAsync();
 
                 StudentListView.ItemsSource = _students;
             }
@@ -104,10 +104,10 @@ namespace StudentSQLite
             };
 
             //SQLite Version
-            //await _databaseService.AddStudentAsync(newStudent);
+            await _databaseServiceSQL.AddStudentAsync(newStudent);
 
             //CSV Version
-            await _databaseServiceCSV.AddStudentAsync(newStudent);
+            //await _databaseServiceCSV.AddStudentAsync(newStudent);
 
             //Un-comment for pop-ups/troubleshooting
             //await DisplayAlert("Add Student","You Added a student","Ok");
@@ -125,7 +125,7 @@ namespace StudentSQLite
 //    public partial class MainPage : ContentPage
 //    {
 //        // Database service to perform CRUD operations
-//        private DatabaseService _databaseService;
+//        private DatabaseService _databaseServiceSQL;
 
 //        // List to store students
 //        private List<Student> _students;
@@ -137,7 +137,7 @@ namespace StudentSQLite
 //            try
 //            {
 //                // Initialize the database service
-//                _databaseService = new DatabaseService();
+//                _databaseServiceSQL = new DatabaseService();
 
 //                // Load students from the database when the page is created
 //                LoadStudentsAsync();
@@ -161,7 +161,7 @@ namespace StudentSQLite
 //            };
 
 //            // Add the student to the database
-//            await _databaseService.AddStudentAsync(newStudent);
+//            await _databaseServiceSQL.AddStudentAsync(newStudent);
 
 //            // Clear the input fields
 //            GivenNameEntry.Text = FamilyNameEntry.Text = StudentNumberEntry.Text = string.Empty;
@@ -186,7 +186,7 @@ namespace StudentSQLite
 //                selectedStudent.EnrollmentDate = EnrollmentDatePicker.Date;
 
 //                // Update the student in the database
-//                await _databaseService.UpdateStudentAsync(selectedStudent);
+//                await _databaseServiceSQL.UpdateStudentAsync(selectedStudent);
 
 //                // Clear the input fields and reset the ListView selection
 //                GivenNameEntry.Text = FamilyNameEntry.Text = StudentNumberEntry.Text = string.Empty;
@@ -207,7 +207,7 @@ namespace StudentSQLite
 //                var selectedStudent = (Student)StudentListView.SelectedItem;
 
 //                // Delete the selected student from the database
-//                await _databaseService.DeleteStudentAsync(selectedStudent);
+//                await _databaseServiceSQL.DeleteStudentAsync(selectedStudent);
 
 //                // Clear the input fields and reset the ListView selection
 //                GivenNameEntry.Text = FamilyNameEntry.Text = StudentNumberEntry.Text = string.Empty;
@@ -222,7 +222,7 @@ namespace StudentSQLite
 //        private async void LoadStudentsAsync()
 //        {
 //            // Retrieve the list of students from the database
-//            _students = await _databaseService.GetStudentsAsync();
+//            _students = await _databaseServiceSQL.GetStudentsAsync();
 
 //            // Bind the list of students to the ListView
 //            StudentListView.ItemsSource = _students;

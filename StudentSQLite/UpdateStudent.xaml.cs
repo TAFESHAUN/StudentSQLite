@@ -3,7 +3,7 @@ namespace StudentSQLite;
 public partial class UpdateStudent : ContentPage
 {
     private Student _selectedStudent;
-    private DatabaseService _databaseService;
+    private DatabaseService _databaseServiceSQL;
     private DatabaseServiceCSV _databaseServiceCSV;
 
     public UpdateStudent(Student selectedStudent, DatabaseService databaseService, DatabaseServiceCSV databaseServiceCSV) //DatabaseService databaseService
@@ -14,7 +14,7 @@ public partial class UpdateStudent : ContentPage
 
         //Pass database servicer
         //SQLite Passed
-        _databaseService = databaseService;
+        _databaseServiceSQL = databaseService;
 
         // Populate the input fields with the existing student details
         GivenNameEntry.Text = _selectedStudent.GivenName;
@@ -37,10 +37,10 @@ public partial class UpdateStudent : ContentPage
 
         //SQLite Version
         // Call the database service to update the student
-        //await _databaseService.UpdateStudentAsync(_selectedStudent);
+        await _databaseServiceSQL.UpdateStudentAsync(_selectedStudent);
 
         //CSV Version
-        await _databaseServiceCSV.UpdateStudentAsync(_selectedStudent);
+        //await _databaseServiceCSV.UpdateStudentAsync(_selectedStudent);
         //await DisplayAlert("Update Student", "You Updated a student", "Ok");
 
         // Navigate back to the previous page
