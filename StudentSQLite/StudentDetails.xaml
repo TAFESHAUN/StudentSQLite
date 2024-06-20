@@ -7,10 +7,10 @@
         <Frame BackgroundColor="#F5F5DC" Padding="10" Margin="20">
             <StackLayout>
                 <!-- Display Student Details Here -->
-                <Label Text="{Binding GivenName}" />
-                <Label Text="{Binding FamilyName}" />
-                <Label Text="{Binding StudentNumber}" />
-                <Label Text="{Binding EnrollmentDate}" />
+                <Label x:Name="GivenName" Text="{Binding GivenName}" />
+                <Label x:Name="FamilyName" Text="{Binding FamilyName}" />
+                <Label x:Name="StudentNumber" Text="{Binding StudentNumber}" />
+                <Label x:Name="EnrolmentDate" Text="{Binding EnrollmentDate}" />
 
                 <!-- Add any other details you want to display -->
             </StackLayout>
