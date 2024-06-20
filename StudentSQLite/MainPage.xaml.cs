@@ -107,17 +107,21 @@ namespace StudentSQLite
 
         private async void ViewDetails_Clicked(object sender, EventArgs e)
         {
-            // Check if a student is selected in the ListView
-            if (StudentListView.SelectedItem != null)
+            // Retrieve the button that was clicked
+            var button = sender as Button;
+
+            // Retrieve the student object from the button's CommandParameter
+            var selectedStudent = button?.CommandParameter as Student;
+
+            if (selectedStudent != null)
             {
-                var selectedStudent = StudentListView.SelectedItem as Student;
+                // Navigate to the StudentDetails page with the selected student
                 await Navigation.PushAsync(new StudentDetails(selectedStudent));
             }
             else
             {
-                //The change we actually need is to make these buttons active when a card is selected
-                //Highlight card we have selected
-                await DisplayAlert("No student", "Click a student card", "Ok");
+                // Display an alert if no student is found (this should not happen if properly bound)
+                await DisplayAlert("No student", "No student details available", "Ok");
             }
         }
     }
